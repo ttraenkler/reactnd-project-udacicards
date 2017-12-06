@@ -1,31 +1,63 @@
 import React, { Component } from "react";
 import { View, TextInput } from "react-native";
-import { Button, LargeText } from "../elements";
+import { connect } from "react-redux";
+import { Button, LargeText, color, styles } from "../elements";
+import { Deck } from "../../client/actions";
+
+type Props = {
+  navigation: Object,
+  create: Function
+};
 
 class NewDeck extends Component {
+  static props: Props;
+
   state = {
     text: ""
   };
   render() {
     return (
-      <View style={{ margin: 25, alignItems: "stretch" }}>
+      <View
+        style={{
+          margin: 30,
+          flex: 1,
+          alignItems: "stretch"
+        }}
+      >
         <LargeText>What is the title of your new deck?</LargeText>
         <TextInput
-          style={{
-            height: 40,
-            borderColor: "transparent",
-            borderBottomColor: "gray",
-            borderWidth: 1
-          }}
+          style={styles.textinput}
           onChangeText={text => this.setState({ text })}
           value={this.state.text}
         />
-        <Button color="blue" onPress={() => this.props.navigation.goBack()}>
-          Create Deck
-        </Button>
+        <View
+          style={{
+            marginHorizontal: 20,
+            marginVertical: 50,
+            flex: 1,
+            alignItems: "stretch"
+          }}
+        >
+          <Button
+            style={{ color: "blue" }}
+            onPress={() => {
+              this.props.create(this.state.text);
+              this.props.navigation.goBack();
+            }}
+          >
+            Create
+          </Button>
+        </View>
       </View>
     );
   }
 }
 
-export default NewDeck;
+export default connect(
+  state => ({}),
+  dispatch => ({
+    create: (title: string) => {
+      dispatch(Deck.create(title));
+    }
+  })
+)(NewDeck);

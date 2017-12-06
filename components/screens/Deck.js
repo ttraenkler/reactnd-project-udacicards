@@ -6,15 +6,34 @@ import {
   StyleSheet,
   TouchableOpacity
 } from "react-native";
-import { Button, styles } from "../elements";
+import { connect } from "react-redux";
+import { Button, styles, LargeText } from "../elements";
 
-const Deck = ({ navigation }) => (
+const Deck = ({ navigation, cardsCount }) => (
   <View style={styles.fullscreen}>
-    <Button color="red">Add Card</Button>
-    <Button color="blue" onPress={() => navigation.navigate("Quiz")}>
-      Start Quiz
-    </Button>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        marginHorizontal: 25
+      }}
+    >
+      <LargeText>
+        {navigation.state.params.title} deck {cardsCount} cards
+      </LargeText>
+      <Button
+        style={{ color: "green" }}
+        onPress={() => navigation.navigate("Quiz")}
+      >
+        Start Quiz
+      </Button>
+    </View>
   </View>
 );
 
-export default Deck;
+export default connect(
+  (state, props) => ({
+    cardsCount: state[props.navigation.state.params.title].questions.length
+  }),
+  dispatch => ({})
+)(Deck);

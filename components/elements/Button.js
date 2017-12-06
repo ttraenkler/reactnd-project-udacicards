@@ -3,8 +3,8 @@ import { Text, TouchableOpacity } from "react-native";
 
 export const Button = ({
   children,
-  color,
-  onPress
+  onPress,
+  style
 }: {
   children: string,
   color: string,
@@ -14,9 +14,10 @@ export const Button = ({
     style={{
       margin: 10,
       padding: 15,
+      flex: style && style.flex,
       alignItems: "center",
       borderRadius: 10,
-      backgroundColor: color
+      backgroundColor: style && style.color
     }}
     onPress={onPress}
   >

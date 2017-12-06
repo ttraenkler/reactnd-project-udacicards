@@ -7,8 +7,8 @@ import {
   TouchableOpacity
 } from "react-native";
 import { Constants } from "expo";
-import data from "../../data.json";
-import { Button } from "../elements";
+import { connect } from "react-redux";
+import { Button, color } from "../elements";
 
 const Deck = ({
   name,
@@ -24,15 +24,22 @@ const Deck = ({
     onPress={onPress}
   >
     <Text style={styles.text}>{name}</Text>
-    <Text style={styles.footerText}>{numberOfCards} cards</Text>
+    <Text style={styles.footerText}>
+      {numberOfCards} {numberOfCards !== 1 ? "cards" : "card"}
+    </Text>
   </TouchableOpacity>
 );
 
-const DeckList = ({ navigation }: { navigation: Object }) => (
+const DeckList = ({
+  data,
+  navigation
+}: {
+  data: Object,
+  navigation: Object
+}) => (
   <View
     style={{
-      alignItems: "stretch",
-      backgroundColor: "white"
+      alignItems: "stretch"
       //paddingTop: Constants.statusBarHeight
     }}
   >
@@ -44,22 +51,30 @@ const DeckList = ({ navigation }: { navigation: Object }) => (
           key={item.key}
           name={item.title}
           numberOfCards={item.questions.length}
-          onPress={() => navigation.navigate("Deck")}
+          onPress={() =>
+            navigation.navigate("Deck", {
+              title: item.title
+            })
+          }
         />
       )}
       ItemSeparatorComponent={() => (
-        <View style={{ backgroundColor: "lightgray", height: 1 }} />
+        <View
+          style={{
+            backgroundColor: color.lightGray,
+            height: 1,
+            marginHorizontal: 15,
+            marginVertical: 10
+          }}
+        />
       )}
     />
-    <Button color="blue" onPress={() => navigation.navigate("NewDeck")}>
-      Create Deck
-    </Button>
   </View>
 );
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 32,
+    fontSize: 22,
     margin: 5
   },
   footerText: {
@@ -67,4 +82,6 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DeckList;
+export default connect(state => ({
+  data: state
+}))(DeckList);
