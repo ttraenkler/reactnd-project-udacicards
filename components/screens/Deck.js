@@ -9,7 +9,7 @@ import {
 import { connect } from "react-redux";
 import { Button, styles, LargeText } from "../elements";
 
-const Deck = ({ navigation, cardsCount }) => (
+const Deck = ({ navigation, questions }) => (
   <View style={styles.fullscreen}>
     <View
       style={{
@@ -18,12 +18,19 @@ const Deck = ({ navigation, cardsCount }) => (
         marginHorizontal: 25
       }}
     >
-      <LargeText>
-        {navigation.state.params.title} deck {cardsCount} cards
-      </LargeText>
+      <Text style={{ fontSize: 32, alignSelf: "center" }}>
+        {navigation.state.params.title}
+      </Text>
+      <LargeText>{questions.length} cards</LargeText>
       <Button
-        style={{ color: "green" }}
-        onPress={() => navigation.navigate("Quiz")}
+        style={{ color: "green", margin: 50 }}
+        onPress={() => {
+          if (questions.length) {
+            navigation.navigate("Quiz", {
+              questions
+            });
+          }
+        }}
       >
         Start Quiz
       </Button>
@@ -33,7 +40,7 @@ const Deck = ({ navigation, cardsCount }) => (
 
 export default connect(
   (state, props) => ({
-    cardsCount: state[props.navigation.state.params.title].questions.length
+    questions: state.decks[props.navigation.state.params.title].questions
   }),
   dispatch => ({})
 )(Deck);

@@ -3,6 +3,7 @@ import { View, TextInput } from "react-native";
 import { connect } from "react-redux";
 import { Button, LargeText, color, styles } from "../elements";
 import { Deck } from "../../client/actions";
+//import { submitEntry, removeEntry } from "../../helpers/api";
 
 type Props = {
   navigation: Object,
@@ -42,7 +43,9 @@ class NewDeck extends Component {
             style={{ color: "blue" }}
             onPress={() => {
               this.props.create(this.state.text);
-              this.props.navigation.goBack();
+              this.props.navigation.navigate("Deck", {
+                title: this.state.text
+              });
             }}
           >
             Create

@@ -1,4 +1,17 @@
-# Udacicards
+# Udacicards / Mobile Flashcards App
+
+## Installation
+
+* `yarn` to install project dependencies
+* `yarn start` to run the app / packager
+* Follow on-screen instructions
+
+## Device Compatibility
+
+* App has been tested on iPhone X device (iOS 11.2) and iPhone 7 simulator (iOS
+  11.2)
+
+## Create React Native App project
 
 This project was bootstrapped with
 [Create React Native App](https://github.com/react-community/create-react-native-app).
@@ -6,11 +19,6 @@ This project was bootstrapped with
 Below you'll find information about performing common tasks. The most recent
 version of this guide is available
 [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
-
-## Installation
-
-* yarn install
-* yarn start
 
 ## Table of Contents
 

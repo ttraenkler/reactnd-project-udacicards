@@ -20,7 +20,10 @@ const Deck = ({
   onPress: Function
 }) => (
   <TouchableOpacity
-    style={{ alignItems: "center", padding: 10 }}
+    style={{
+      alignItems: "center",
+      padding: 20
+    }}
     onPress={onPress}
   >
     <Text style={styles.text}>{name}</Text>
@@ -39,8 +42,8 @@ const DeckList = ({
 }) => (
   <View
     style={{
+      flex: 1,
       alignItems: "stretch"
-      //paddingTop: Constants.statusBarHeight
     }}
   >
     <FlatList
@@ -50,7 +53,7 @@ const DeckList = ({
         <Deck
           key={item.key}
           name={item.title}
-          numberOfCards={item.questions.length}
+          numberOfCards={(item && item.questions && item.questions.length) || 0}
           onPress={() =>
             navigation.navigate("Deck", {
               title: item.title
@@ -64,7 +67,7 @@ const DeckList = ({
             backgroundColor: color.lightGray,
             height: 1,
             marginHorizontal: 15,
-            marginVertical: 10
+            marginVertical: 0
           }}
         />
       )}
@@ -83,5 +86,5 @@ const styles = StyleSheet.create({
 });
 
 export default connect(state => ({
-  data: state
+  data: state.decks
 }))(DeckList);
