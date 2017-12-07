@@ -21,7 +21,9 @@ const Deck = ({ navigation, questions }) => (
       <Text style={{ fontSize: 32, alignSelf: "center" }}>
         {navigation.state.params.title}
       </Text>
-      <LargeText>{questions.length} cards</LargeText>
+      <LargeText>
+        {questions.length} {questions.length !== 1 ? "cards" : "card"}
+      </LargeText>
       <Button
         style={{ color: "green", margin: 50 }}
         onPress={() => {
