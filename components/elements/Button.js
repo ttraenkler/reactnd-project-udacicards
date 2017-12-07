@@ -24,3 +24,24 @@ export const Button = ({
     <Text style={{ color: "white", fontSize: 20 }}>{children}</Text>
   </TouchableOpacity>
 );
+
+export const AddButton = ({
+  onPress,
+  label = "+"
+}: {
+  onPress: void => void
+}) => (
+  <TouchableOpacity onPress={onPress}>
+    <Text
+      style={{
+        marginTop: -5,
+        backgroundColor: "transparent",
+        color: "#666",
+        fontSize: 17,
+        marginHorizontal: 15
+      }}
+    >
+      {label}
+    </Text>
+  </TouchableOpacity>
+);
